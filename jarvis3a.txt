@@ -1,0 +1,62 @@
+<html>
+	<body>
+		<form action = "GradeServlet" method = "post">
+			Name : <input type = "text" name = "sname" />
+			marks : <input mark = "number" name ="marks" />
+			<input type ="submit" value="cal grage" />
+		</form>
+	</body>
+</html>
+
+<web-app>
+	<servlet>
+		<servlet-name>GradeServlet</servlet-name>
+		<servlet-class>GradeServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>GradeServlet</servlet-name>
+		<url-pattern>/GradeServlet</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+    		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>
+
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class GradeServlet extends HttpServlet{
+	@Override
+	public void doPost(HttpServletRequest req,
+			   HttpServletResponse res) throws IOException, ServletException{
+
+		res.setContentType("text/html");
+	
+		String name = req.getParameter("sname");
+		String mark = req.getParameter("marks");
+
+		char grade;
+
+		int mark1 = Integer.parseInt(mark);
+	
+		if(mark1 > 50){
+			grade = 'A';
+		}
+		else{
+			grade = 'B';
+		}
+
+		PrintWriter pw = res.getWriter();
+
+		pw.println("<html> <body>");
+		pw.println("<p>"+name+"</p>");
+		pw.println("<p>"+mark1+"</p>");
+		pw.println("<p>"+grade+"</p>");
+		pw.println("</body> </html>");
+
+	}
+}
